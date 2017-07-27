@@ -45,7 +45,7 @@ class yangMysql{
 		$this->db_table = DB_TABLE; //default table
 		$this->db_log_folder = DB_LOG_FOLDER;//
 		$this->connect(); //connect to mysql
-		$this->_getCharset(); // get mysql server character set
+		$this->getCharset(); // get mysql server character set
 	}
 	/**
 	 * yangMysql destructor
@@ -130,11 +130,16 @@ class yangMysql{
 	/**
 	 * get MySQL charset
 	 */
-	public function _getCharset(){
+	public function getCharset(){
 		$queryCharset = "SHOW VARIABLES LIKE 'character_set_%'";
 		$this->charset = $this->connection->query($queryCharset)->fetch_all(MYSQLI_ASSOC);;
 		return $this->charset;
 	}
+
+	/**
+	 * set MySQL server charset
+	 */
+	
 
 	/**
 	 * select database
@@ -306,7 +311,7 @@ class yangMysql{
 require(__DIR__.'/config.php');
 $yangsql = new yangMysql(); //instantiation
 
-$charaset = $yangsql->_getCharset(); //test queryCharset()
+$charaset = $yangsql->getCharset(); //test queryCharset()
 // echo json_encode($charaset);
 $yangsql->selectDb(DB_DATABASE); //
 $yangsql->showTables(); //
